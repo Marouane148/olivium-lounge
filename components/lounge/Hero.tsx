@@ -3,6 +3,7 @@
 import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
+import Hero3D from './hero3d/Hero3D';
 
 export default function Hero() {
   const ref = useRef<HTMLDivElement>(null);
@@ -28,6 +29,10 @@ export default function Hero() {
         <div className="absolute inset-0 bg-gradient-to-b from-[#0B0B0B]/80 via-[#0B0B0B]/60 to-[#0B0B0B]" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#0B0B0B]/70 via-transparent to-[#0B0B0B]/50" />
       </motion.div>
+
+      {/* 3D scene: chicha + fumée animée + verre */}
+      <Hero3D />
+      <div className="absolute inset-0 z-[1] bg-gradient-to-t from-[#0B0B0B] via-transparent to-[#0B0B0B]/40 pointer-events-none" />
 
       {/* Decorative elements */}
       <div className="absolute top-1/3 left-8 w-[1px] h-32 bg-gradient-to-b from-transparent via-[#C8A96B]/40 to-transparent hidden lg:block" />

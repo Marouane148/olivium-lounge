@@ -1,6 +1,7 @@
 'use client';
 
 import { Instagram, Facebook, MapPin, Phone, Clock } from 'lucide-react';
+import { business } from '@/lib/business';
 
 const links = [
   { label: 'Accueil', href: '#hero' },
@@ -96,19 +97,19 @@ export default function Footer() {
                 <MapPin size={15} className="text-[#C8A96B] mt-0.5 shrink-0" />
                 <div>
                   <p className="text-[#F5F5F5]/50 text-sm font-light leading-relaxed">
-                    7 Avenue du Belvédère<br />93310 Le Pré-Saint-Gervais
+                    {business.streetAddress}<br />{business.postalCode} {business.addressLocality}
                   </p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
                 <Phone size={15} className="text-[#C8A96B] shrink-0" />
-                <a href="tel:+33616461770" className="text-[#F5F5F5]/50 text-sm font-light hover:text-[#C8A96B] transition-colors">
-                  +33 6 16 46 17 70
+                <a href={`tel:${business.telephone}`} className="text-[#F5F5F5]/50 text-sm font-light hover:text-[#C8A96B] transition-colors">
+                  {business.telephoneDisplay}
                 </a>
               </div>
               <div className="flex items-center gap-3">
                 <Clock size={15} className="text-[#C8A96B] shrink-0" />
-                <p className="text-[#F5F5F5]/50 text-sm font-light">11h00 – 02h00 • 7j/7</p>
+                <p className="text-[#F5F5F5]/50 text-sm font-light">{business.openingHours.opens} – {business.openingHours.closes} • 7j/7</p>
               </div>
             </div>
           </div>

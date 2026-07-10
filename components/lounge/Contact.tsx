@@ -2,7 +2,8 @@
 
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { MapPin, Phone, Clock, Instagram, Facebook } from 'lucide-react';
+import { MapPin, Phone, Clock, Instagram, Facebook, Star } from 'lucide-react';
+import { business } from '@/lib/business';
 
 function FadeIn({ children, delay = 0, className = '' }: { children: React.ReactNode; delay?: number; className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -24,21 +25,21 @@ const infos = [
   {
     icon: MapPin,
     label: 'Adresse',
-    value: '7 Avenue du Belvédère',
-    sub: '93310 Le Pré-Saint-Gervais',
-    href: 'https://maps.google.com/?q=7+Avenue+du+Belvédère+93310+Le+Pré-Saint-Gervais',
+    value: business.streetAddress,
+    sub: `${business.postalCode} ${business.addressLocality}`,
+    href: business.googleMapsUrl,
   },
   {
     icon: Phone,
     label: 'Téléphone',
-    value: '+33 6 16 46 17 70',
-    href: 'tel:+33616461770',
+    value: business.telephoneDisplay,
+    href: `tel:${business.telephone}`,
   },
   {
     icon: Clock,
     label: 'Horaires',
     value: 'Lun – Dim',
-    sub: '11h00 – 02h00',
+    sub: `${business.openingHours.opens} – ${business.openingHours.closes}`,
   },
 ];
 
@@ -132,7 +133,7 @@ export default function Contact() {
           <FadeIn delay={0.3} className="lg:col-span-3">
             <div className="relative rounded-sm overflow-hidden h-[420px] border border-[#C8A96B]/10">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2623.0!2d2.4021!3d48.8827!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e66c4b84d88ae1%3A0x0!2s7+Avenue+du+Belv%C3%A9d%C3%A8re%2C+93310+Le+Pr%C3%A9-Saint-Gervais!5e0!3m2!1sfr!2sfr!4v1700000000000"
+                src={`https://www.google.com/maps?q=${business.latitude},${business.longitude}&hl=fr&z=16&output=embed`}
                 width="100%"
                 height="100%"
                 style={{ border: 0, filter: 'grayscale(80%) invert(90%) hue-rotate(180deg) brightness(0.7) contrast(0.85)' }}
@@ -143,9 +144,21 @@ export default function Contact() {
               />
               {/* Map overlay badge */}
               <div className="absolute bottom-4 left-4 glass px-4 py-2.5 rounded-sm">
-                <p className="text-[#C8A96B] text-xs font-semibold tracking-wider">L'Olivium Lounge</p>
-                <p className="text-[#F5F5F5]/50 text-xs">Le Pré-Saint-Gervais</p>
+                <p className="text-[#C8A96B] text-xs font-semibold tracking-wider">{business.name}</p>
+                <p className="text-[#F5F5F5]/50 text-xs">{business.addressLocality}</p>
               </div>
+              {/* Rating + review CTA badge */}
+              <a
+                href={business.googleWriteReviewUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group absolute top-4 right-4 glass px-4 py-2.5 rounded-sm flex items-center gap-2 hover:border-[#C8A96B]/40 transition-colors"
+              >
+                <Star size={14} className="text-[#C8A96B] fill-[#C8A96B]" />
+                <span className="text-[#F5F5F5]/85 text-xs font-semibold">{business.ratingValue.toString().replace('.', ',')}</span>
+                <span className="text-[#F5F5F5]/40 text-xs">({business.reviewCount})</span>
+                <span className="text-[#C8A96B] text-xs ml-1 group-hover:underline">Laisser un avis</span>
+              </a>
             </div>
           </FadeIn>
         </div>
