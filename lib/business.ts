@@ -18,8 +18,11 @@ export const business = {
   ratingValue: 4.8,
   reviewCount: 18,
   googleMapsUrl: 'https://www.google.com/maps?cid=9699727340294397041',
-  googleWriteReviewUrl:
-    'https://search.google.com/local/writereview?ftid=0x47e66d05227554b1:0x869c5a9fe8645c71',
+  // TODO: replace with the official short link from Google Business Profile
+  // ("Demander des avis" button) once available — it deep-links straight to
+  // the review form instead of the place page. The ftid= deep-link trick was
+  // dropped because Google intermittently rejects it with a 400 error.
+  googleWriteReviewUrl: 'https://www.google.com/maps?cid=9699727340294397041',
   openingHours: { opens: '11:00', closes: '02:00' },
   sameAs: ['https://instagram.com', 'https://facebook.com'], // TODO: replace with real profile URLs
 } as const;

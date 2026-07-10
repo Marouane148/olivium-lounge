@@ -83,11 +83,11 @@ export default function About() {
           <FadeIn delay={0.35} className="relative">
             <div className="relative aspect-[4/5] rounded-sm overflow-hidden">
               <img
-                src="/gallery/olivium-6.jpg"
+                src="/gallery/olivium-2.jpg"
                 alt="Intérieur L'Olivium Lounge"
                 className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0B0B0B]/60 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0B0B0B]/45 via-transparent to-transparent" />
             </div>
             {/* Floating accent card */}
             <div className="absolute -bottom-6 -left-6 glass p-5 rounded-sm shadow-dark-lg">
