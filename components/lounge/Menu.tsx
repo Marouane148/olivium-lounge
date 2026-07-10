@@ -1,73 +1,121 @@
 'use client';
 
-import { useRef, useState } from 'react';
-import { motion, useInView, AnimatePresence } from 'framer-motion';
-import { Wind, Wine, Droplets, Utensils } from 'lucide-react';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { UtensilsCrossed, Beef, Sandwich, Soup, Utensils, Wind, CupSoda, IceCreamCone } from 'lucide-react';
+import FadeIn from './FadeIn';
+import TiltCard from './TiltCard';
+import ChichaMiniSceneLoader from './hero3d/ChichaMiniSceneLoader';
 
 const categories = [
   {
+    id: 'plats',
+    icon: UtensilsCrossed,
+    label: 'Nos Plats',
+    items: [
+      { name: 'Ojja merguez', price: '9€' },
+      { name: 'Ojja escalope', price: '9€' },
+      { name: 'Plat du jour tunisien', price: '9€' },
+      { name: 'Assiette de grillade', price: '9€' },
+    ],
+  },
+  {
+    id: 'burgers',
+    icon: Beef,
+    label: 'Nos Burgers',
+    items: [
+      { name: 'Moster', desc: 'Steak, œuf, bacon, cheddar', price: '9€' },
+      { name: 'Radical', desc: 'Steak, œuf, cheddar, gorgonzola', price: '9€' },
+      { name: "Burger L'Olivium", desc: 'Steak, œuf, cheddar, oignons caramélisés, sauce maison', price: '9€' },
+    ],
+  },
+  {
+    id: 'sandwichs',
+    icon: Sandwich,
+    label: 'Nos Sandwichs',
+    items: [
+      { name: 'Moster', desc: '2 steaks, œuf, bacon', price: '9€' },
+      { name: 'Tandoori', desc: 'Poulet paprika', price: '9€' },
+      { name: "L'Olivium", desc: 'Escalope, fromage, sauce champignon', price: '9€' },
+    ],
+  },
+  {
+    id: 'pates',
+    icon: Soup,
+    label: 'Nos Pâtes',
+    items: [
+      { name: 'À la crème', price: '9€' },
+      { name: 'Bolognaise', price: '9€' },
+      { name: '4 Fromages', price: '9€' },
+    ],
+  },
+  {
+    id: 'paninis',
+    icon: Utensils,
+    label: 'Nos Paninis',
+    items: [
+      { name: 'Panini poulet', price: '6€' },
+      { name: 'Panini 4 fromages', price: '6€' },
+      { name: 'Panini thon', price: '6€' },
+    ],
+  },
+  {
     id: 'chichas',
     icon: Wind,
-    label: 'Chichas',
+    label: 'Nos Chichas',
+    signature: true,
+    flavors: ['Menthe pomme', 'Love', 'Thuri', 'Riamer'],
     items: [
-      { name: 'Classique Al Fakher', desc: 'Tabac traditionnel aux saveurs authentiques', price: '18€', badge: 'Signature' },
-      { name: 'Double Pomme', desc: 'La classique revisitée avec des pommes fraîches', price: '18€' },
-      { name: 'Menthe Glacée', desc: 'Fraîcheur intense, idéale pour commencer la soirée', price: '18€' },
-      { name: 'Tropical Paradise', desc: 'Mangue, ananas, fruits de la passion', price: '22€', badge: 'Premium' },
-      { name: 'Fusion Rose & Litchi', desc: 'Mariage floral et fruité, exclusivité maison', price: '25€', badge: 'Exclusif' },
-      { name: 'Black Ice', desc: 'Mélange mystérieux aux notes de réglisse et menthe', price: '22€', badge: 'Best-seller' },
+      { name: 'Chicha classique', price: '15€' },
+      { name: 'Chicha Kaloud', price: '20€' },
+      { name: 'Chicha Quasar', price: '20€' },
+      { name: 'Tête supplémentaire', price: '10€' },
     ],
   },
   {
-    id: 'cocktails',
-    icon: Wine,
-    label: 'Cocktails',
+    id: 'smoothies',
+    icon: CupSoda,
+    label: 'Nos Smoothies',
     items: [
-      { name: 'Olivium Signature', desc: 'Gin, citron vert, sirop doré, eau de rose', price: '14€', badge: 'Signature' },
-      { name: 'Smoky Negroni', desc: 'Gin fumé, Campari, vermouth doux, zeste orange', price: '15€' },
-      { name: 'Midnight Spritz', desc: 'Prosecco, cassis, fleur de sureau, framboise', price: '13€' },
-      { name: 'Golden Whisky Sour', desc: 'Whisky single malt, citron, miel, blanc d\'oeuf', price: '16€' },
-      { name: 'Arabian Night', desc: 'Vodka, sirop de rose, cardamome, lychee', price: '15€', badge: 'Premium' },
+      { name: 'Fraise', price: '9€' },
+      { name: 'Ananas', price: '9€' },
+      { name: 'Fruits rouges', price: '9€' },
+      { name: 'Avocado', desc: 'Avocat, banane, dates, amandes', price: '9€' },
     ],
   },
   {
-    id: 'mocktails',
-    icon: Droplets,
-    label: 'Mocktails',
+    id: 'crepes',
+    icon: IceCreamCone,
+    label: 'Nos Crêpes',
     items: [
-      { name: 'Garden Breeze', desc: 'Concombre, menthe, citron vert, eau pétillante', price: '9€' },
-      { name: 'Sunset Passion', desc: 'Mangue, maracuja, gingembre, jus d\'ananas', price: '10€', badge: 'Signature' },
-      { name: 'Virgin Rose', desc: 'Lychee, eau de rose, framboise, citron', price: '9€' },
-      { name: 'Spicy Ginger', desc: 'Gingembre frais, citron, miel, menthe', price: '9€' },
-      { name: 'Blue Ocean', desc: 'Fleur de mauve, citron, sirop de coco, grenadine', price: '11€', badge: 'Premium' },
-    ],
-  },
-  {
-    id: 'desserts',
-    icon: Utensils,
-    label: 'Desserts',
-    items: [
-      { name: 'Baklava Maison', desc: 'Pâtisserie orientale au miel, pistaches et noix', price: '8€', badge: 'Maison' },
-      { name: 'Kunafa Royale', desc: 'Fromage, semoule, sirop de fleur d\'oranger', price: '10€' },
-      { name: 'Fondant Chocolat Noir', desc: 'Coulant intense, glace vanille bourbon', price: '9€' },
-      { name: 'Crème Brûlée Cardamome', desc: 'Classique revisité aux épices orientales', price: '9€', badge: 'Premium' },
-      { name: 'Plateau Pâtisseries', desc: 'Sélection de 5 pièces orientales artisanales', price: '16€', badge: 'Partage' },
+      { name: 'Nutella banane', price: '9€' },
+      { name: 'Spéculoos Caramel beurre salé', price: '9€' },
     ],
   },
 ];
 
-function FadeIn({ children, delay = 0, className = '' }: { children: React.ReactNode; delay?: number; className?: string }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: '-80px' });
+function MenuCard({ item, i }: { item: { name: string; desc?: string; price: string }; i: number }) {
   return (
     <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 40 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.8, delay, ease: 'easeOut' }}
-      className={className}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: i * 0.06, duration: 0.5 }}
+      className="group"
+      style={{ perspective: 800 }}
     >
-      {children}
+      <TiltCard className="glass p-6 rounded-sm hover:border-[#C8A96B]/25 transition-all duration-500 hover:shadow-gold overflow-hidden h-full">
+        <div className="flex-1">
+          <h4 className="font-display text-lg text-[#F5F5F5] font-medium mb-2 group-hover:text-[#C8A96B] transition-colors duration-300">
+            {item.name}
+          </h4>
+          {item.desc && <p className="text-[#F5F5F5]/45 text-sm leading-relaxed font-light">{item.desc}</p>}
+        </div>
+        <div className="flex items-center justify-between mt-5 pt-4 border-t border-[#F5F5F5]/5">
+          <div className="w-6 h-[1px] bg-[#C8A96B]/40" />
+          <span className="text-gold-gradient font-display text-xl font-semibold">{item.price}</span>
+        </div>
+        <div className="absolute bottom-0 left-0 h-[1px] w-0 bg-gradient-to-r from-[#C8A96B]/60 to-transparent group-hover:w-full transition-all duration-700" />
+      </TiltCard>
     </motion.div>
   );
 }
@@ -75,6 +123,7 @@ function FadeIn({ children, delay = 0, className = '' }: { children: React.React
 export default function Menu() {
   const [active, setActive] = useState('chichas');
   const current = categories.find((c) => c.id === active)!;
+  const isSignature = Boolean(current.signature);
 
   return (
     <section id="menu" className="relative py-32 px-6 overflow-hidden" style={{ background: 'linear-gradient(180deg, #0B0B0B 0%, #0F0F0F 50%, #0B0B0B 100%)' }}>
@@ -97,7 +146,7 @@ export default function Menu() {
         </FadeIn>
 
         {/* Category tabs */}
-        <FadeIn delay={0.2} className="flex flex-wrap justify-center gap-3 mb-14">
+        <FadeIn delay={0.15} className="flex flex-wrap justify-center gap-3 mb-14">
           {categories.map((cat) => (
             <button
               key={cat.id}
@@ -122,36 +171,39 @@ export default function Menu() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.4 }}
-            className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4"
+            className={isSignature ? 'grid lg:grid-cols-5 gap-10 items-start' : ''}
           >
-            {current.items.map((item, i) => (
-              <motion.div
-                key={item.name}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.07, duration: 0.5 }}
-                className="group glass p-6 rounded-sm hover:border-[#C8A96B]/25 transition-all duration-500 hover:shadow-gold relative overflow-hidden"
-              >
-                {item.badge && (
-                  <span className="absolute top-4 right-4 text-[10px] tracking-[0.4em] uppercase text-[#C8A96B]/60 font-light">
-                    {item.badge}
-                  </span>
-                )}
-                <div className="flex items-start justify-between gap-4 pr-16">
-                  <div className="flex-1">
-                    <h4 className="font-display text-lg text-[#F5F5F5] font-medium mb-2 group-hover:text-[#C8A96B] transition-colors duration-300">
-                      {item.name}
-                    </h4>
-                    <p className="text-[#F5F5F5]/45 text-sm leading-relaxed font-light">{item.desc}</p>
+            {isSignature && (
+              <div className="lg:col-span-2 relative">
+                <div className="relative aspect-square rounded-sm overflow-hidden border border-[#C8A96B]/15 bg-gradient-to-b from-[#1a1712] to-[#0B0B0B]">
+                  <ChichaMiniSceneLoader />
+                  <div className="absolute top-4 left-4 flex items-center gap-2">
+                    <span className="px-3 py-1 bg-[#C8A96B] text-[#0B0B0B] text-[10px] tracking-[0.3em] uppercase font-semibold rounded-sm">
+                      Signature
+                    </span>
                   </div>
                 </div>
-                <div className="flex items-center justify-between mt-5 pt-4 border-t border-[#F5F5F5]/5">
-                  <div className="w-6 h-[1px] bg-[#C8A96B]/40" />
-                  <span className="text-gold-gradient font-display text-xl font-semibold">{item.price}</span>
+                <div className="mt-6 glass p-5 rounded-sm">
+                  <p className="text-[#F5F5F5]/40 text-xs uppercase tracking-widest mb-3">Nos goûts</p>
+                  <div className="flex flex-wrap gap-2">
+                    {current.flavors?.map((flavor) => (
+                      <span
+                        key={flavor}
+                        className="px-3 py-1.5 border border-[#C8A96B]/20 text-[#C8A96B]/80 text-xs rounded-full"
+                      >
+                        {flavor}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-                <div className="absolute bottom-0 left-0 h-[1px] w-0 bg-gradient-to-r from-[#C8A96B]/60 to-transparent group-hover:w-full transition-all duration-700" />
-              </motion.div>
-            ))}
+              </div>
+            )}
+
+            <div className={`grid sm:grid-cols-2 ${isSignature ? 'lg:col-span-3' : 'lg:grid-cols-3'} gap-4`}>
+              {current.items.map((item, i) => (
+                <MenuCard key={item.name} item={item} i={i} />
+              ))}
+            </div>
           </motion.div>
         </AnimatePresence>
 

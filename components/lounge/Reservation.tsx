@@ -1,24 +1,9 @@
 'use client';
 
-import { useRef, useState } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { useState } from 'react';
+import { motion } from 'framer-motion';
 import { Phone, MessageCircle, User, Users, Calendar, Clock, Send } from 'lucide-react';
-
-function FadeIn({ children, delay = 0, className = '' }: { children: React.ReactNode; delay?: number; className?: string }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: '-80px' });
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 40 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.8, delay, ease: 'easeOut' }}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  );
-}
+import FadeIn from './FadeIn';
 
 const inputClass =
   'w-full bg-[#1A1A1A] border border-[#2E2E2E] focus:border-[#C8A96B]/50 focus:outline-none text-[#F5F5F5] placeholder-[#F5F5F5]/25 px-4 py-3.5 text-sm rounded-sm transition-all duration-300 focus:bg-[#1E1E1E]';

@@ -1,8 +1,9 @@
 'use client';
 
-import { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Leaf, Sparkles, Clock, Shield } from 'lucide-react';
+import FadeIn from './FadeIn';
+import FloatingAccents from './FloatingAccents';
 
 const highlights = [
   {
@@ -27,25 +28,11 @@ const highlights = [
   },
 ];
 
-function FadeIn({ children, delay = 0, className = '' }: { children: React.ReactNode; delay?: number; className?: string }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: '-80px' });
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 40 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.8, delay, ease: 'easeOut' }}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  );
-}
 
 export default function About() {
   return (
     <section id="about" className="relative py-32 px-6 overflow-hidden bg-[#0B0B0B]">
+      <FloatingAccents />
       {/* Background accents */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-24 bg-gradient-to-b from-transparent to-[#C8A96B]/30" />
       <div className="absolute -top-32 left-0 w-[500px] h-[500px] rounded-full bg-[#556B2F]/5 blur-[120px] pointer-events-none" />

@@ -4,6 +4,7 @@ import { useMemo, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import Smoke from './Smoke';
+import { getSmokeTexture } from './smokeTexture';
 
 const GOLD = '#C8A96B';
 const GOLD_LIGHT = '#E8D5A3';
@@ -28,7 +29,9 @@ function useVaseGeometry() {
 
 export default function Hookah() {
   const coalRef = useRef<THREE.PointLight>(null);
+  const glowRef = useRef<THREE.Sprite>(null);
   const vaseGeometry = useVaseGeometry();
+  const glowTexture = useMemo(() => getSmokeTexture(), []);
 
   const hosePath = useMemo(() => {
     return new THREE.CatmullRomCurve3([
@@ -43,9 +46,14 @@ export default function Hookah() {
   const hoseGeometry = useMemo(() => new THREE.TubeGeometry(hosePath, 64, 0.045, 12, false), [hosePath]);
 
   useFrame((state) => {
+    const t = state.clock.getElapsedTime();
+    const flicker = 0.65 + Math.sin(t * 6) * 0.12 + Math.sin(t * 13) * 0.05;
     if (coalRef.current) {
-      const t = state.clock.getElapsedTime();
-      coalRef.current.intensity = 0.65 + Math.sin(t * 6) * 0.12 + Math.sin(t * 13) * 0.05;
+      coalRef.current.intensity = flicker;
+    }
+    if (glowRef.current) {
+      const s = 0.55 + flicker * 0.18;
+      glowRef.current.scale.set(s, s, 1);
     }
   });
 
@@ -93,6 +101,17 @@ export default function Hookah() {
         <meshStandardMaterial color="#FF7A3C" emissive="#FF5A1F" emissiveIntensity={1.6} />
       </mesh>
       <pointLight ref={coalRef} position={[0.16, 1.7, 0]} color="#FF7A3C" intensity={0.7} distance={1.1} />
+      {/* Soft glow halo (hand-rolled bloom substitute, avoids a postprocessing dependency) */}
+      <sprite ref={glowRef} position={[0.16, 1.68, 0]} scale={[0.6, 0.6, 1]}>
+        <spriteMaterial
+          map={glowTexture}
+          color="#FF8A45"
+          transparent
+          opacity={0.55}
+          depthWrite={false}
+          blending={THREE.AdditiveBlending}
+        />
+      </sprite>
 
       {/* Hose */}
       <mesh geometry={hoseGeometry}>
