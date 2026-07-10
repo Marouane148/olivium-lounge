@@ -6,33 +6,33 @@ import { X, ZoomIn } from 'lucide-react';
 
 const images = [
   {
-    src: 'https://images.pexels.com/photos/1267355/pexels-photo-1267355.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
-    alt: 'Ambiance lounge sombre',
+    src: '/gallery/olivium-1.jpg',
+    alt: "Salon lounge L'Olivium avec médaillon arbre et banquettes",
     span: 'col-span-2 row-span-2',
   },
   {
-    src: 'https://images.pexels.com/photos/3171837/pexels-photo-3171837.jpeg?auto=compress&cs=tinysrgb&w=500&h=400&fit=crop',
-    alt: 'Espace VIP',
+    src: '/gallery/olivium-6.jpg',
+    alt: 'Chicha et banquettes en velours vert',
     span: '',
   },
   {
-    src: 'https://images.pexels.com/photos/1395967/pexels-photo-1395967.jpeg?auto=compress&cs=tinysrgb&w=500&h=400&fit=crop',
-    alt: 'Chicha premium',
+    src: '/gallery/olivium-2.jpg',
+    alt: 'Couloir décoré, tableaux et éclairage ambiance',
     span: '',
   },
   {
-    src: 'https://images.pexels.com/photos/3407777/pexels-photo-3407777.jpeg?auto=compress&cs=tinysrgb&w=500&h=400&fit=crop',
-    alt: 'Bar cocktails',
+    src: '/gallery/olivium-4.jpg',
+    alt: "Espace écran et enseigne néon L'Olivium",
     span: '',
   },
   {
-    src: 'https://images.pexels.com/photos/2034851/pexels-photo-2034851.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop',
-    alt: 'Terrasse nocturne',
+    src: '/gallery/olivium-3.jpg',
+    alt: 'Salle principale et bar',
     span: 'col-span-2',
   },
   {
-    src: 'https://images.pexels.com/photos/1574653/pexels-photo-1574653.jpeg?auto=compress&cs=tinysrgb&w=500&h=400&fit=crop',
-    alt: 'Soirée privée',
+    src: '/gallery/olivium-5.jpg',
+    alt: 'Coin détente et tables basses',
     span: '',
   },
 ];

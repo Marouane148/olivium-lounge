@@ -29,9 +29,12 @@ export default function Footer() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand */}
           <div className="lg:col-span-1">
-            <div className="mb-6">
-              <p className="text-gold-gradient font-display text-3xl font-semibold leading-none">L'Olivium</p>
-              <p className="text-[#C8A96B]/40 text-[10px] tracking-[0.5em] uppercase mt-1">Lounge</p>
+            <div className="mb-6 flex items-center gap-3">
+              <img src="/brand/logo.svg" alt="L'Olivium Lounge" className="h-14 w-14 rounded-full" />
+              <div>
+                <p className="text-gold-gradient font-display text-2xl font-semibold leading-none">L'Olivium</p>
+                <p className="text-[#C8A96B]/40 text-[10px] tracking-[0.5em] uppercase mt-1">Lounge</p>
+              </div>
             </div>
             <p className="text-[#F5F5F5]/40 text-sm leading-relaxed font-light mb-6">
               Un espace raffiné mêlant chichas premium, cocktails créatifs et ambiance lounge exclusive.

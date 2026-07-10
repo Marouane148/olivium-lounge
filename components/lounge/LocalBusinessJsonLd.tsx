@@ -10,7 +10,12 @@ export default function LocalBusinessJsonLd() {
     url: SITE_URL,
     telephone: business.telephone,
     priceRange: business.priceRange,
-    image: [`${SITE_URL}/logo.png`],
+    logo: `${SITE_URL}/brand/logo-512.png`,
+    image: [
+      `${SITE_URL}/gallery/olivium-1.jpg`,
+      `${SITE_URL}/gallery/olivium-3.jpg`,
+      `${SITE_URL}/gallery/olivium-6.jpg`,
+    ],
     address: {
       '@type': 'PostalAddress',
       streetAddress: business.streetAddress,

@@ -96,7 +96,7 @@ export default function About() {
           <FadeIn delay={0.35} className="relative">
             <div className="relative aspect-[4/5] rounded-sm overflow-hidden">
               <img
-                src="https://images.pexels.com/photos/1395967/pexels-photo-1395967.jpeg?auto=compress&cs=tinysrgb&w=800&h=1000&fit=crop"
+                src="/gallery/olivium-6.jpg"
                 alt="Intérieur L'Olivium Lounge"
                 className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
               />

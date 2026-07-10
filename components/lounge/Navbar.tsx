@@ -46,13 +46,20 @@ export default function Navbar() {
           {/* Logo */}
           <button
             onClick={() => handleNavClick('#hero')}
-            className="flex flex-col items-start group"
+            className="flex items-center gap-3 group"
           >
-            <span className="text-gold-gradient font-display text-2xl font-semibold leading-none tracking-wide group-hover:opacity-80 transition-opacity">
-              L'Olivium
-            </span>
-            <span className="text-[#C8A96B]/50 text-[10px] tracking-[0.5em] uppercase mt-0.5">
-              Lounge
+            <img
+              src="/brand/logo.svg"
+              alt="L'Olivium Lounge"
+              className="h-12 w-12 md:h-14 md:w-14 rounded-full transition-opacity group-hover:opacity-80"
+            />
+            <span className="hidden sm:flex flex-col items-start">
+              <span className="text-gold-gradient font-display text-xl font-semibold leading-none tracking-wide">
+                L'Olivium
+              </span>
+              <span className="text-[#C8A96B]/50 text-[10px] tracking-[0.5em] uppercase mt-0.5">
+                Lounge
+              </span>
             </span>
           </button>
 
