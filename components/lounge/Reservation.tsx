@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Phone, MessageCircle, User, Users, Calendar, Clock, Send } from 'lucide-react';
+import { Phone, MessageCircle, User, Users, Calendar, Clock, Send, Loader2 } from 'lucide-react';
 import FadeIn from './FadeIn';
 
 const inputClass =
@@ -17,17 +17,28 @@ export default function Reservation() {
     time: '',
     message: '',
   });
-  const [sent, setSent] = useState(false);
+  const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSent(true);
-    setTimeout(() => setSent(false), 4000);
-    setForm({ name: '', phone: '', guests: '', date: '', time: '', message: '' });
+    setStatus('sending');
+    try {
+      const res = await fetch('/api/reservation', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
+      if (!res.ok) throw new Error('Request failed');
+      setStatus('sent');
+      setForm({ name: '', phone: '', guests: '', date: '', time: '', message: '' });
+      setTimeout(() => setStatus('idle'), 5000);
+    } catch {
+      setStatus('error');
+    }
   };
 
   const whatsappMsg = encodeURIComponent(
@@ -204,22 +215,37 @@ export default function Reservation() {
 
               <button
                 type="submit"
-                className="group relative w-full py-4 bg-[#C8A96B] text-[#0B0B0B] text-sm tracking-[0.3em] uppercase font-semibold overflow-hidden rounded-sm transition-all duration-500 hover:shadow-[0_0_40px_rgba(200,169,107,0.35)] flex items-center justify-center gap-3"
+                disabled={status === 'sending'}
+                className="group relative w-full py-4 bg-[#C8A96B] text-[#0B0B0B] text-sm tracking-[0.3em] uppercase font-semibold overflow-hidden rounded-sm transition-all duration-500 hover:shadow-[0_0_40px_rgba(200,169,107,0.35)] flex items-center justify-center gap-3 disabled:opacity-60 disabled:cursor-not-allowed"
               >
                 <span className="relative z-10 flex items-center gap-3">
-                  <Send size={16} />
-                  Envoyer ma réservation
+                  {status === 'sending' ? (
+                    <Loader2 size={16} className="animate-spin" />
+                  ) : (
+                    <Send size={16} />
+                  )}
+                  {status === 'sending' ? 'Envoi en cours...' : 'Envoyer ma réservation'}
                 </span>
                 <div className="absolute inset-0 bg-[#D4BA82] transform translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-500" />
               </button>
 
-              {sent && (
+              {status === 'sent' && (
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   className="text-center py-3 text-[#C8A96B] text-sm tracking-wide"
                 >
                   Votre demande a bien été envoyée. Nous vous recontacterons rapidement.
+                </motion.div>
+              )}
+
+              {status === 'error' && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="text-center py-3 text-red-400 text-sm tracking-wide"
+                >
+                  Une erreur est survenue. Merci de réessayer ou de nous contacter via WhatsApp ci-contre.
                 </motion.div>
               )}
             </form>
