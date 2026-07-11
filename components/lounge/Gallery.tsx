@@ -27,14 +27,9 @@ const images = [
     span: '',
   },
   {
-    src: '/gallery/olivium-3.jpg',
-    alt: 'Salle principale et bar',
-    span: 'col-span-2',
-  },
-  {
     src: '/gallery/olivium-5.jpg',
     alt: 'Coin détente et tables basses',
-    span: '',
+    span: 'col-span-2',
   },
 ];
 

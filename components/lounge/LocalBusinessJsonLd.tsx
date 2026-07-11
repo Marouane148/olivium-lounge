@@ -13,7 +13,7 @@ export default function LocalBusinessJsonLd() {
     logo: `${SITE_URL}/brand/logo-512.png`,
     image: [
       `${SITE_URL}/gallery/olivium-1.jpg`,
-      `${SITE_URL}/gallery/olivium-3.jpg`,
+      `${SITE_URL}/gallery/olivium-2.jpg`,
       `${SITE_URL}/gallery/olivium-6.jpg`,
     ],
     address: {
