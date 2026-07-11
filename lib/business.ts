@@ -1,7 +1,7 @@
 // Source of truth for the establishment's NAP (Name/Address/Phone) and Google identifiers.
 // Keep this in sync with the Google Business Profile to preserve local SEO consistency.
 
-export const SITE_URL = 'https://olivium-lounge.fr'; // TODO: replace with the real domain
+export const SITE_URL = 'https://olivium-lounge.fr';
 
 export const business = {
   name: "L'Olivium Lounge",
