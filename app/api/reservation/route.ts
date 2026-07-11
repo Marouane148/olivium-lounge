@@ -1,11 +1,12 @@
 import { NextResponse } from 'next/server';
-import { Resend } from 'resend';
+import nodemailer from 'nodemailer';
 import { RESERVATION_EMAIL_TO, buildReservationEmailHtml, isValidReservationPayload } from '@/lib/reservation-email';
 
 export async function POST(request: Request) {
-  const apiKey = process.env.RESEND_API_KEY;
-  if (!apiKey) {
-    console.error('RESEND_API_KEY is not set');
+  const gmailUser = process.env.GMAIL_USER;
+  const gmailAppPassword = process.env.GMAIL_APP_PASSWORD;
+  if (!gmailUser || !gmailAppPassword) {
+    console.error('GMAIL_USER or GMAIL_APP_PASSWORD is not set');
     return NextResponse.json({ error: 'Email service not configured' }, { status: 500 });
   }
 
@@ -20,25 +21,23 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
   }
 
-  const resend = new Resend(apiKey);
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: { user: gmailUser, pass: gmailAppPassword },
+  });
 
   try {
-    const { error } = await resend.emails.send({
-      from: "L'Olivium Lounge <onboarding@resend.dev>",
+    await transporter.sendMail({
+      from: `"L'Olivium Lounge" <${gmailUser}>`,
       to: RESERVATION_EMAIL_TO,
       replyTo: body.phone,
       subject: `Réservation — ${body.name} — ${body.date} ${body.time}`,
       html: buildReservationEmailHtml(body),
     });
 
-    if (error) {
-      console.error('Resend error:', error);
-      return NextResponse.json({ error: 'Failed to send email' }, { status: 502 });
-    }
-
     return NextResponse.json({ ok: true });
   } catch (err) {
     console.error('Reservation email error:', err);
-    return NextResponse.json({ error: 'Failed to send email' }, { status: 500 });
+    return NextResponse.json({ error: 'Failed to send email' }, { status: 502 });
   }
 }
