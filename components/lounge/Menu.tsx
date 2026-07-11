@@ -64,7 +64,7 @@ const categories = [
     icon: Wind,
     label: 'Nos Chichas',
     signature: true,
-    flavors: ['Mi Amor', 'Hawaï', 'Love', 'Menthe pomme', 'Suisse', 'Bonbon'],
+    flavors: ['Mi Amor', 'Hawaï', 'Love', 'Menthe', 'Pomme', 'Swiss Bonbon'],
     items: [
       { name: 'Chicha classique', price: '15€' },
       { name: 'Chicha Kaloud', price: '20€' },
