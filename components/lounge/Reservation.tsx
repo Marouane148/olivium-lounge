@@ -161,6 +161,7 @@ export default function Reservation() {
                       onChange={handleChange}
                       required
                       className={`${inputClass} pl-9 appearance-none cursor-pointer`}
+                      style={{ colorScheme: 'dark' }}
                     >
                       <option value="">Nb.</option>
                       {[1, 2, 3, 4, 5, 6, 7, 8, '9+'].map((n) => (
