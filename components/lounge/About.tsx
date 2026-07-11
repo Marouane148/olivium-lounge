@@ -72,7 +72,7 @@ export default function About() {
                 <div className="flex items-center gap-4">
                   <div className="w-8 h-[1px] bg-[#C8A96B]" />
                   <span className="text-[#C8A96B] text-sm tracking-[0.3em] uppercase font-light">
-                    Depuis 2020 — Le Pré-Saint-Gervais
+                    Depuis 2025 — Le Pré-Saint-Gervais
                   </span>
                 </div>
               </div>
