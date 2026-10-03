@@ -61,10 +61,10 @@ export default function Hero() {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 2.8 }}
-          className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-semibold leading-[1.05] mb-6"
+          className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold leading-[1.1] mb-6"
         >
-          <span className="block text-[#F5F5F5]">L'expérience</span>
-          <span className="block text-gold-gradient italic">lounge premium</span>
+          <span className="block text-[#F5F5F5]">Bar à chicha et restaurant lounge</span>{' '}
+          <span className="block text-gold-gradient italic">au Pré-Saint-Gervais</span>
         </motion.h1>
 
         {/* Subtitle */}

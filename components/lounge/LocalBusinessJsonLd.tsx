@@ -3,19 +3,15 @@ import { business, SITE_URL } from '@/lib/business';
 export default function LocalBusinessJsonLd() {
   const schema = {
     '@context': 'https://schema.org',
-    '@type': ['BarOrPub', 'CafeOrCoffeeShop'],
-    '@id': `${SITE_URL}#business`,
+    '@type': 'BarOrPub',
+    '@id': `${SITE_URL}/#business`,
     name: business.name,
     legalName: business.legalName,
-    url: SITE_URL,
+    url: `${SITE_URL}/`,
     telephone: business.telephone,
     priceRange: business.priceRange,
     logo: `${SITE_URL}/brand/logo-512.png`,
-    image: [
-      `${SITE_URL}/gallery/olivium-1.jpg`,
-      `${SITE_URL}/gallery/olivium-2.jpg`,
-      `${SITE_URL}/gallery/olivium-6.jpg`,
-    ],
+    image: `${SITE_URL}/og-image.jpg`,
     address: {
       '@type': 'PostalAddress',
       streetAddress: business.streetAddress,
@@ -28,7 +24,7 @@ export default function LocalBusinessJsonLd() {
       latitude: business.latitude,
       longitude: business.longitude,
     },
-    hasMap: business.googleMapsUrl,
+    hasMap: business.googleMapsPlaceUrl,
     openingHoursSpecification: [
       {
         '@type': 'OpeningHoursSpecification',
@@ -37,13 +33,7 @@ export default function LocalBusinessJsonLd() {
         closes: business.openingHours.closes,
       },
     ],
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: business.ratingValue,
-      reviewCount: business.reviewCount,
-      bestRating: 5,
-    },
-    servesCuisine: ['Chicha', 'Cocktails', 'Salon de thé'],
+    servesCuisine: ['Burgers', 'Sandwichs', 'Pâtes', 'Paninis', 'Smoothies', 'Crêpes'],
     sameAs: business.sameAs,
   };
 

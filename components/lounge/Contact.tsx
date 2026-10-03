@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { MapPin, Phone, Clock, Instagram, Facebook, Star } from 'lucide-react';
+import { MapPin, Phone, Clock, Star } from 'lucide-react';
 import { business } from '@/lib/business';
 import FadeIn from './FadeIn';
 
@@ -93,22 +93,13 @@ export default function Contact() {
               <p className="text-[#F5F5F5]/40 text-xs uppercase tracking-widest mb-4">Réseaux sociaux</p>
               <div className="flex gap-3">
                 <a
-                  href="https://instagram.com"
+                  href="https://www.tiktok.com/@lolivium_lounge"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group flex items-center gap-2.5 px-4 py-2.5 border border-[#F5F5F5]/10 rounded-sm hover:border-[#C8A96B]/40 hover:text-[#C8A96B] text-[#F5F5F5]/50 transition-all duration-300 text-sm"
                 >
-                  <Instagram size={15} />
-                  <span className="font-light">Instagram</span>
-                </a>
-                <a
-                  href="https://facebook.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group flex items-center gap-2.5 px-4 py-2.5 border border-[#F5F5F5]/10 rounded-sm hover:border-[#C8A96B]/40 hover:text-[#C8A96B] text-[#F5F5F5]/50 transition-all duration-300 text-sm"
-                >
-                  <Facebook size={15} />
-                  <span className="font-light">Facebook</span>
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.6 6.7a4.8 4.8 0 0 1-3.8-4.2V2h-3.4v13.4a2.9 2.9 0 1 1-2-2.8V9.1a6.3 6.3 0 1 0 5.4 6.2V8.9a8.2 8.2 0 0 0 4.8 1.5V7a4.8 4.8 0 0 1-1-.3z"/></svg>
+                  <span className="font-light">TikTok</span>
                 </a>
               </div>
             </div>
@@ -141,7 +132,6 @@ export default function Contact() {
               >
                 <Star size={14} className="text-[#C8A96B] fill-[#C8A96B]" />
                 <span className="text-[#F5F5F5]/85 text-xs font-semibold">{business.ratingValue.toString().replace('.', ',')}</span>
-                <span className="text-[#F5F5F5]/40 text-xs">({business.reviewCount})</span>
                 <span className="text-[#C8A96B] text-xs ml-1 group-hover:underline">Laisser un avis</span>
               </a>
             </div>

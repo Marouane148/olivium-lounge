@@ -1,6 +1,6 @@
 'use client';
 
-import { Instagram, Facebook, MapPin, Phone, Clock } from 'lucide-react';
+import { MapPin, Phone, Clock } from 'lucide-react';
 import { business } from '@/lib/business';
 
 const links = [
@@ -42,20 +42,12 @@ export default function Footer() {
             {/* Social */}
             <div className="flex gap-3">
               <a
-                href="https://instagram.com"
+                href="https://www.tiktok.com/@lolivium_lounge"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-sm border border-[#F5F5F5]/10 flex items-center justify-center text-[#F5F5F5]/40 hover:border-[#C8A96B]/50 hover:text-[#C8A96B] transition-all duration-300"
-              >
-                <Instagram size={16} />
-              </a>
-              <a
-                href="https://facebook.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 rounded-sm border border-[#F5F5F5]/10 flex items-center justify-center text-[#F5F5F5]/40 hover:border-[#C8A96B]/50 hover:text-[#C8A96B] transition-all duration-300"
-              >
-                <Facebook size={16} />
+               aria-label="TikTok">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.6 6.7a4.8 4.8 0 0 1-3.8-4.2V2h-3.4v13.4a2.9 2.9 0 1 1-2-2.8V9.1a6.3 6.3 0 1 0 5.4 6.2V8.9a8.2 8.2 0 0 0 4.8 1.5V7a4.8 4.8 0 0 1-1-.3z"/></svg>
               </a>
             </div>
           </div>

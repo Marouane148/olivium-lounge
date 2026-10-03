@@ -25,8 +25,8 @@ const services = [
   },
   {
     icon: Umbrella,
-    title: 'Terrasse Lounge',
-    desc: 'Profitez de notre espace extérieur intimiste, conçu pour les soirées sous les étoiles.',
+    title: 'Terrasse Arborée',
+    desc: 'Profitez de notre terrasse arborée, un espace extérieur intimiste pour vos soirées lounge.',
     tag: 'Outdoor',
   },
   {
