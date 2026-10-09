@@ -1,4 +1,5 @@
 import { business, SITE_URL } from '@/lib/business';
+import { servesCuisine } from '@/lib/menu';
 
 export default function LocalBusinessJsonLd() {
   const schema = {
@@ -33,7 +34,8 @@ export default function LocalBusinessJsonLd() {
         closes: business.openingHours.closes,
       },
     ],
-    servesCuisine: ['Burgers', 'Sandwichs', 'Pâtes', 'Paninis', 'Smoothies', 'Crêpes'],
+    servesCuisine,
+    hasMenu: `${SITE_URL}/menu`,
     sameAs: business.sameAs,
   };
 

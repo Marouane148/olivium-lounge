@@ -1,0 +1,8 @@
+/* ── Photo (avec case de repli : si l'image manque, l'icône reste visible) ── */
+.mn-ph { position: relative; overflow: hidden; background: linear-gradient(145deg, #1c1a15, #11100d); display: flex; align-items: center; justify-content: center; color: rgba(200, 169, 107, .55); }
+.mn-ph > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .45s ease; }
+.mn-ph > svg { width: 34%; height: 34%; }
+
+@media (prefers-reduced-motion: reduce) {
+  .mn-ph > img { transition: none; }
+}
