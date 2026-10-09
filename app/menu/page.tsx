@@ -2,6 +2,7 @@
 import type { Metadata } from 'next';
 import MenuPhoto from '@/components/lounge/MenuPhoto';
 import { SITE_URL } from '@/lib/business';
+import { smallImage } from '@/lib/menu-images';
 import {
   featuredItems,
   hasExampleItems,
@@ -43,14 +44,35 @@ function Badge({ item }: { item: MenuItem }) {
 function ItemCard({ item }: { item: MenuItem }) {
   return (
     <li className="mn-card mn-reveal">
-      <MenuPhoto src={item.image} />
-      <div className="mn-card-body">
-        <Badge item={item} />
-        <h3 className="mn-name">{item.name}</h3>
-        {item.description && <p className="mn-desc">{item.description}</p>}
-        <div className="mn-card-foot">
-          <span className="mn-price">{item.price}</span>
+      <div className="mn-card-row">
+        <MenuPhoto src={smallImage(item.image)} />
+        <div className="mn-card-body">
+          <Badge item={item} />
+          <h3 className="mn-name">{item.name}</h3>
+          {item.description && <p className="mn-desc">{item.description}</p>}
+          <div className="mn-card-foot">
+            <span className="mn-price">{item.price}</span>
+          </div>
         </div>
+      </div>
+      {item.options && item.options.length > 0 && (
+        <ul className="mn-flavors mn-flavors-sm">
+          {item.options.map((o) => (
+            <li key={o} className="mn-pill mn-pill-sm">{o}</li>
+          ))}
+        </ul>
+      )}
+    </li>
+  );
+}
+
+function FormuleCard({ item }: { item: MenuItem }) {
+  return (
+    <li className="mn-fcard mn-reveal">
+      <MenuPhoto src={item.image} className="mn-fph" />
+      <div className="mn-fbody">
+        <h3 className="mn-fname">{item.name}</h3>
+        <span className="mn-price mn-price-lg">{item.price}</span>
       </div>
     </li>
   );
@@ -85,28 +107,6 @@ function Rows({ items }: { items: MenuItem[] }) {
   );
 }
 
-function Families({ items }: { items: MenuItem[] }) {
-  return (
-    <ul className="mn-rows mn-reveal">
-      {items.map((i) => (
-        <li key={i.name} className="mn-fam">
-          <div className="mn-row">
-            <span className="mn-name">{i.name}</span>
-            <span className="mn-row-price">{i.price}</span>
-          </div>
-          {i.options && i.options.length > 0 && (
-            <ul className="mn-flavors mn-flavors-sm">
-              {i.options.map((o) => (
-                <li key={o} className="mn-pill mn-pill-sm">{o}</li>
-              ))}
-            </ul>
-          )}
-        </li>
-      ))}
-    </ul>
-  );
-}
-
 function Group({ group, title }: { group: MenuGroup; title?: string }) {
   const items = visibleItems(group);
   return (
@@ -127,7 +127,13 @@ function Group({ group, title }: { group: MenuGroup; title?: string }) {
         </ul>
       )}
       {group.display === 'rows' && <Rows items={items} />}
-      {group.display === 'families' && <Families items={items} />}
+      {group.display === 'formules' && (
+        <ul className="mn-formules">
+          {items.map((i) => (
+            <FormuleCard key={i.name} item={i} />
+          ))}
+        </ul>
+      )}
     </div>
   );
 }
@@ -151,6 +157,8 @@ function Section({ section }: { section: MenuSection }) {
       {groups.map((g, idx) => (
         <Group key={g.title ?? idx} group={g} title={groups.length > 1 ? g.title : undefined} />
       ))}
+
+      {section.note && <p className="mn-note mn-reveal">{section.note}</p>}
 
       {chichas && section.flavors && (
         <>

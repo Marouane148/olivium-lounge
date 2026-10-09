@@ -56,13 +56,18 @@ export default function MenuTabs({ tabs }: { tabs: Tab[] }) {
     return () => window.removeEventListener('scroll', onScroll);
   }, [tabs]);
 
-  // Garde l'onglet actif visible dans la barre
+  // Garde l'onglet actif visible dans la barre. Jamais au chargement : la barre
+  // reste calée au début ("Formules" entièrement visible).
+  const mounted = useRef(false);
   useEffect(() => {
-    const btn = barRef.current?.querySelector<HTMLElement>('[aria-current="true"]');
-    const bar = barRef.current;
-    if (btn && bar) {
-      bar.scrollTo({ left: btn.offsetLeft - bar.clientWidth / 2 + btn.clientWidth / 2, behavior: 'smooth' });
+    if (!mounted.current) {
+      mounted.current = true;
+      return;
     }
+    const btn = barRef.current?.querySelector<HTMLElement>('[aria-current="true"]');
+    if (!btn) return;
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    btn.scrollIntoView({ inline: 'nearest', block: 'nearest', behavior: reduce ? 'auto' : 'smooth' });
   }, [active]);
 
   const go = (id: string) => {
@@ -77,17 +82,19 @@ export default function MenuTabs({ tabs }: { tabs: Tab[] }) {
   return (
     <nav className="mn-tabs" aria-label="Rubriques de la carte">
       <div className="mn-tabs-scroll" ref={barRef}>
-        {tabs.map((t) => (
-          <button
-            key={t.id}
-            type="button"
-            className="mn-tab"
-            aria-current={active === t.id ? 'true' : undefined}
-            onClick={() => go(t.id)}
-          >
-            {t.label}
-          </button>
-        ))}
+        <div className="mn-tabs-group">
+          {tabs.map((t) => (
+            <button
+              key={t.id}
+              type="button"
+              className="mn-tab"
+              aria-current={active === t.id ? 'true' : undefined}
+              onClick={() => go(t.id)}
+            >
+              {t.label}
+            </button>
+          ))}
+        </div>
       </div>
     </nav>
   );

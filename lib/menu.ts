@@ -4,21 +4,20 @@
 // de design n'est nécessaire.
 //
 // • Modifier un plat ou un prix : changez `name`, `description` ou `price`.
-// • Changer une photo : déposez le fichier dans public/menu/ (carré conseillé,
-//   ~600 × 600 px, .webp ou .jpg) puis mettez `image: '/menu/mon-fichier.webp'`.
-//   Sans `image`, une case élégante avec icône s'affiche.
+// • Changer une photo : déposez le fichier dans public/menu/ (carré, 800 × 800 px,
+//   .webp) puis mettez `image: '/menu/mon-fichier.webp'`. Ajoutez aussi la version
+//   400 × 400 `mon-fichier-sm.webp` : elle sert aux vignettes des listes (sans elle,
+//   la grande photo est utilisée). Sans `image`, une case élégante avec icône s'affiche.
 // • Boissons chaudes : renseignez `price` et supprimez `hidden: true`. Tant que
 //   `price` est vide ou que `hidden` est à true, l'article n'apparaît pas.
 // • Un article avec `featured: 1, 2, 3…` apparaît dans "Les incontournables"
-//   (dans cet ordre ; réservé aux articles qui ont une photo) ; les 4 premiers sont repris sur la page d'accueil.
+//   (dans cet ordre ; réservé aux articles qui ont une photo) ; les 4 premiers
+//   sont repris sur la page d'accueil.
 // • Quand un article n'est qu'un exemple, mettez `example: true` : un bandeau
 //   "Carte d'exemple" s'affiche alors tout seul (aucun aujourd'hui).
 //
-// ⚠️ PHOTOS : celles de public/menu/ (sauf hero.webp et chicha-banner.webp, qui
-// sont de vraies photos du lounge) viennent de Pexels (licence libre) et ne
-// montrent PAS les vrais plats. À remplacer au fil de l'eau.
-// ⚠️ Quand toutes les photos seront les vraies, videz `photoDisclaimer` ci-dessous
-// pour retirer la mention "Photos non contractuelles" en bas de la page /menu.
+// ⚠️ Quand toutes les photos seront les vraies photos du lounge, videz
+// `photoDisclaimer` ci-dessous pour retirer "Photos non contractuelles".
 // ─────────────────────────────────────────────────────────────────────────────
 
 export type MenuBadge = 'Signature' | 'Nouveau' | 'Épicé' | 'Végétarien';
@@ -41,17 +40,17 @@ export type MenuItem = {
   hidden?: boolean;
   /** true = article d'exemple à valider / remplacer */
   example?: boolean;
-  /** Parfums / choix affichés en pastilles sous la ligne (familles de boissons) */
+  /** Parfums / choix affichés en pastilles sous la carte */
   options?: string[];
 };
 
 /**
- * cards    : grandes cartes avec photo à gauche
+ * cards    : cartes avec photo à gauche (et pastilles dessous si `options`)
  * grid     : grille 2 colonnes, photo au-dessus
  * rows     : liste simple nom + prix
- * families : une ligne par famille (nom + prix) avec les parfums en pastilles dessous
+ * formules : grandes cartes avec photo 4:3 en haut
  */
-export type GroupDisplay = 'cards' | 'grid' | 'rows' | 'families';
+export type GroupDisplay = 'cards' | 'grid' | 'rows' | 'formules';
 
 export type MenuGroup = {
   /** Sous-titre de la famille (affiché si la rubrique a plusieurs familles visibles) */
@@ -63,10 +62,12 @@ export type MenuGroup = {
 export type MenuSection = {
   id: string;
   label: string;
-  /** 'chichas' = bandeau photo + liste + goûts */
+  /** 'chichas' = bandeau photo + cartes + goûts */
   layout?: 'standard' | 'chichas';
   groups: MenuGroup[];
   flavors?: string[];
+  /** Texte affiché sous les cartes de la rubrique */
+  note?: string;
 };
 
 export const menuInfo = {
@@ -95,6 +96,21 @@ const COCKTAIL = '9 €';
 
 export const menuSections: MenuSection[] = [
   {
+    id: 'formules',
+    label: 'Formules',
+    note: 'Chicha classique incluse. Supplément de 5 € pour la Kaloud ou la Quasar. Au choix parmi les entrées, plats et desserts de la carte.',
+    groups: [
+      {
+        display: 'formules',
+        items: [
+          { name: 'Entrée + Plat + Chicha', price: '30 €', image: '/menu/formule-entree-plat.webp' },
+          { name: 'Plat + Dessert + Chicha', price: '30 €', image: '/menu/formule-plat-dessert.webp' },
+          { name: 'Entrée + Plat + Dessert + Chicha', price: '35 €', image: '/menu/formule-complete.webp' },
+        ],
+      },
+    ],
+  },
+  {
     id: 'entrees',
     label: 'Entrées',
     groups: [
@@ -102,7 +118,7 @@ export const menuSections: MenuSection[] = [
         title: 'Entrées',
         display: 'cards',
         items: [
-          { name: 'Assiette asiatique', price: ENTREE, image: '/menu/assiette-asiatique.webp' },
+          { name: 'Assiette asiatique', description: 'Tempura de crevette, nems au poulet', price: ENTREE, image: '/menu/assiette-asiatique.webp' },
           { name: 'Bricks', price: ENTREE, image: '/menu/bricks.webp' },
           { name: 'Burrata', price: ENTREE, image: '/menu/burrata.webp' },
         ],
@@ -112,7 +128,7 @@ export const menuSections: MenuSection[] = [
         display: 'cards',
         items: [
           { name: 'Salade César', price: SALADE, image: '/menu/salade-cesar.webp' },
-          { name: 'Salade variée', price: SALADE, image: '/menu/salade-mediterraneenne.webp' },
+          { name: 'Salade variée', price: SALADE, image: '/menu/salade-variee.webp' },
         ],
       },
     ],
@@ -134,22 +150,22 @@ export const menuSections: MenuSection[] = [
             featured: 1,
           },
           { name: 'Pavé de saumon', description: 'Frites ou pâtes', price: PLAT, image: '/menu/pave-saumon.webp' },
-          { name: 'Escalope à la crème', description: 'Frites ou pâtes', price: PLAT },
+          { name: 'Escalope à la crème', description: 'Frites ou pâtes', price: PLAT, image: '/menu/escalope-creme.webp' },
         ],
       },
       {
         title: 'Pâtes',
         display: 'cards',
         items: [
+          { name: 'Pâtes forestière', price: PATES, image: '/menu/pates-forestiere.webp' },
           {
-            name: 'Pâtes forestière',
+            name: 'Pâtes au saumon',
             price: PATES,
-            image: '/menu/pates-forestiere.webp',
-            imageLarge: '/menu/pates-forestiere-lg.webp',
+            image: '/menu/pates-saumon.webp',
+            imageLarge: '/menu/pates-saumon-lg.webp',
             featured: 3,
           },
-          { name: 'Pâtes au saumon', price: PATES },
-          { name: 'Pâtes salsa', price: PATES },
+          { name: 'Pâtes salsa', price: PATES, image: '/menu/pates-salsa.webp' },
         ],
       },
       {
@@ -199,12 +215,7 @@ export const menuSections: MenuSection[] = [
         items: [
           { name: 'Fondant au chocolat', description: 'Boule de glace, crème anglaise', price: '5 €', image: '/menu/fondant-chocolat.webp' },
           { name: 'Tiramisu', description: 'Spéculoos, Kinder Bueno, brownie ou café', price: '5 €', image: '/menu/tiramisu.webp' },
-          {
-            name: 'Gaufre',
-            description: 'Nutella, banane',
-            price: '7 €',
-            image: '/menu/gaufre.webp',
-          },
+          { name: 'Gaufre', description: 'Nutella, banane', price: '7 €', image: '/menu/gaufre.webp' },
           {
             name: 'Brioche perdue',
             description: 'Nutella, banane',
@@ -243,15 +254,16 @@ export const menuSections: MenuSection[] = [
       },
       {
         title: 'Boissons froides',
-        display: 'families',
+        display: 'cards',
         items: [
-          { name: 'Milkshakes', price: '9 €', options: ['Oreo', 'Bueno', "M&M's", 'Spéculoos'] },
-          { name: 'Smoothies', price: '7 €', options: ['Fraise', 'Banane', 'Ananas', 'Mangue', 'Avocat', 'Fruits rouges'] },
-          { name: 'Jus', price: '5 €', options: ['Fraise', 'Ananas', 'Orange', 'Abricot'] },
-          { name: "Jus d'orange pressé", price: '7 €' },
+          { name: 'Milkshakes', price: '9 €', image: '/menu/milkshakes.webp', options: ['Oreo', 'Bueno', "M&M's", 'Spéculoos'] },
+          { name: 'Smoothies', price: '7 €', image: '/menu/smoothies.webp', options: ['Fraise', 'Banane', 'Ananas', 'Mangue', 'Avocat', 'Fruits rouges'] },
+          { name: 'Jus', price: '5 €', image: '/menu/jus.webp', options: ['Fraise', 'Ananas', 'Orange', 'Abricot'] },
+          { name: "Jus d'orange pressé", price: '7 €', image: '/menu/jus-orange-presse.webp' },
           {
             name: 'Softs',
             price: '4 €',
+            image: '/menu/softs.webp',
             options: [
               'Ice Tea',
               'Oasis',
@@ -268,7 +280,7 @@ export const menuSections: MenuSection[] = [
               'Orangina',
             ],
           },
-          { name: 'Red Bull', price: '7 €' },
+          { name: 'Red Bull', price: '7 €', image: '/menu/red-bull.webp' },
         ],
       },
       {
@@ -290,12 +302,12 @@ export const menuSections: MenuSection[] = [
     layout: 'chichas',
     groups: [
       {
-        display: 'rows',
+        display: 'cards',
         items: [
-          { name: 'Chicha classique', price: '15 €' },
-          { name: 'Chicha Kaloud', price: '20 €' },
-          { name: 'Chicha Quasar', price: '20 €' },
-          { name: 'Tête supplémentaire', price: '10 €' },
+          { name: 'Chicha classique', price: '15 €', image: '/menu/chicha-classique.webp' },
+          { name: 'Chicha Kaloud', price: '20 €', image: '/menu/chicha-kaloud.webp' },
+          { name: 'Chicha Quasar', price: '20 €', image: '/menu/chicha-quasar.webp' },
+          { name: 'Tête supplémentaire', price: '10 €', image: '/menu/chicha-tete.webp' },
         ],
       },
     ],
@@ -315,6 +327,10 @@ export const visibleItems = (g: MenuGroup): MenuItem[] => g.items.filter(isVisib
 
 const allItems = (): MenuItem[] =>
   menuSections.flatMap((s) => s.groups.flatMap((g) => visibleItems(g)));
+
+/** Les formules (pour la page d'accueil) */
+export const formules = (): MenuItem[] =>
+  menuSections.find((s) => s.id === 'formules')?.groups.flatMap((g) => visibleItems(g)) ?? [];
 
 /** Incontournables, triés par `featured`. */
 export const featuredItems = (): MenuItem[] =>

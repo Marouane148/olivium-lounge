@@ -1,12 +1,13 @@
 import Link from 'next/link';
 import FadeIn from './FadeIn';
 import MenuPhoto from './MenuPhoto';
-import { homeItems } from '@/lib/menu';
+import { formules, homeItems } from '@/lib/menu';
 
 // Version courte de la carte : quelques articles mis en avant (lus depuis lib/menu.ts)
 // et un bouton vers la carte complète /menu.
 export default function Menu() {
   const items = homeItems();
+  const offers = formules();
 
   return (
     <section id="menu" className="relative py-32 px-6 overflow-hidden" style={{ background: 'linear-gradient(180deg, #0B0B0B 0%, #0F0F0F 50%, #0B0B0B 100%)' }}>
@@ -27,6 +28,22 @@ export default function Menu() {
             Une sélection de nos incontournables.
           </p>
         </FadeIn>
+
+        {offers.length > 0 && (
+          <FadeIn delay={0.1} className="mb-14">
+            <ul className="grid grid-cols-1 sm:grid-cols-3 gap-4 lg:gap-6">
+              {offers.map((offer) => (
+                <li key={offer.name} className="glass rounded-sm overflow-hidden border border-[#C8A96B]/25">
+                  <MenuPhoto src={offer.image} className="aspect-[4/3] w-full" />
+                  <div className="p-4 sm:p-5 flex items-center justify-between gap-3">
+                    <h3 className="font-display text-base sm:text-lg text-[#F5F5F5] font-medium leading-snug">{offer.name}</h3>
+                    <span className="text-gold-gradient font-display text-xl sm:text-2xl font-semibold whitespace-nowrap">{offer.price}</span>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </FadeIn>
+        )}
 
         <FadeIn delay={0.15}>
           <ul className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
