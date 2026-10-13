@@ -89,6 +89,13 @@ function GridCard({ item }: { item: MenuItem }) {
         <div className="mn-card-foot">
           <span className="mn-price">{item.price}</span>
         </div>
+        {item.options && item.options.length > 0 && (
+          <ul className="mn-flavors mn-flavors-sm">
+            {item.options.map((o) => (
+              <li key={o} className="mn-pill mn-pill-sm">{o}</li>
+            ))}
+          </ul>
+        )}
       </div>
     </li>
   );

@@ -84,16 +84,6 @@ export const menuInfo = {
   photoDisclaimer: 'Photos non contractuelles',
 };
 
-// Prix uniques par famille
-const ENTREE = '9 €';
-const SALADE = '9 €';
-const PATES = '12 €';
-const PLAT = '12 €';
-const BURGER = '10 €';
-const SANDWICH = '10 €';
-const PANINI = '6 €';
-const COCKTAIL = '9 €';
-
 export const menuSections: MenuSection[] = [
   {
     id: 'formules',
@@ -118,17 +108,18 @@ export const menuSections: MenuSection[] = [
         title: 'Entrées',
         display: 'cards',
         items: [
-          { name: 'Assiette asiatique', description: 'Tempura de crevette, nems au poulet', price: ENTREE, image: '/menu/assiette-asiatique.webp' },
-          { name: 'Bricks', price: ENTREE, image: '/menu/bricks.webp' },
-          { name: 'Burrata', price: ENTREE, image: '/menu/burrata.webp' },
+          { name: 'Assiette asiatique', description: 'Tempura de crevette, nems au poulet', price: '9 €', image: '/menu/assiette-asiatique.webp' },
+          { name: 'Bricks', price: '9 €', image: '/menu/bricks.webp' },
+          { name: 'Burrata', price: '9 €', image: '/menu/burrata.webp' },
         ],
       },
       {
         title: 'Salades',
         display: 'cards',
         items: [
-          { name: 'Salade César', price: SALADE, image: '/menu/salade-cesar.webp' },
-          { name: 'Salade variée', price: SALADE, image: '/menu/salade-variee.webp' },
+          { name: 'Salade César', price: '9 €', image: '/menu/salade-cesar.webp' },
+          // Prix à renseigner : tant que `price` est vide, la salade n'apparaît pas sur la page.
+          { name: 'Salade nordique', description: 'Saumon, avocat', price: '', hidden: true, image: '/menu/salade-nordique.webp' },
         ],
       },
     ],
@@ -144,64 +135,64 @@ export const menuSections: MenuSection[] = [
           {
             name: 'Ojja',
             description: 'Au choix : merguez, escalope, thon ou fruits de mer',
-            price: PLAT,
+            price: '12 €',
             image: '/menu/ojja-merguez.webp',
             imageLarge: '/menu/ojja-merguez-lg.webp',
             featured: 1,
           },
-          { name: 'Pavé de saumon', description: 'Frites ou pâtes', price: PLAT, image: '/menu/pave-saumon.webp' },
-          { name: 'Escalope à la crème', description: 'Frites ou pâtes', price: PLAT, image: '/menu/escalope-creme.webp' },
+          { name: 'Pavé de saumon', description: 'Frites ou pâtes', price: '15 €', image: '/menu/pave-saumon.webp' },
+          { name: 'Escalope à la crème', description: 'Frites ou pâtes', price: '15 €', image: '/menu/escalope-creme.webp' },
         ],
       },
       {
         title: 'Pâtes',
         display: 'cards',
         items: [
-          { name: 'Pâtes forestière', price: PATES, image: '/menu/pates-forestiere.webp' },
+          { name: 'Pâtes forestière', price: '14 €', image: '/menu/pates-forestiere.webp' },
           {
             name: 'Pâtes au saumon',
-            price: PATES,
+            price: '14 €',
             image: '/menu/pates-saumon.webp',
             imageLarge: '/menu/pates-saumon-lg.webp',
             featured: 3,
           },
-          { name: 'Pâtes salsa', price: PATES, image: '/menu/pates-salsa.webp' },
+          { name: 'Pâtes salsa', price: '14 €', image: '/menu/pates-salsa.webp' },
         ],
       },
       {
         title: 'Burgers',
         display: 'cards',
         items: [
-          { name: 'Cheese', description: 'Steak, œuf, cheddar', price: BURGER, image: '/menu/burger-cheese.webp' },
+          { name: 'Cheese', description: 'Double steak, œuf, cheddar', price: '10 €', image: '/menu/burger-cheese.webp' },
           {
             name: 'Spécial',
             fullName: 'Burger Spécial',
-            description: 'Steak, œuf, cheddar, chèvre miel',
-            price: BURGER,
+            description: 'Double steak, œuf, cheddar, chèvre miel',
+            price: '12 €',
             image: '/menu/burger-special.webp',
             imageLarge: '/menu/burger-special-lg.webp',
             featured: 2,
           },
-          { name: 'Radical', description: 'Steak, œuf, cheddar, gorgonzola', price: BURGER, image: '/menu/burger-radical.webp' },
-          { name: 'Chicken', description: 'Poulet pané', price: BURGER, image: '/menu/burger-chicken.webp' },
+          { name: 'Radical', description: 'Double steak, œuf, cheddar, gorgonzola', price: '12 €', image: '/menu/burger-radical.webp' },
+          { name: 'Chicken', description: 'Poulet pané', price: '10 €', image: '/menu/burger-chicken.webp' },
         ],
       },
       {
         title: 'Sandwichs',
         display: 'cards',
         items: [
-          { name: 'Master', description: 'Steaks, œuf, bacon', price: SANDWICH, image: '/menu/sandwich-master.webp' },
-          { name: 'Tandoori', description: 'Poulet paprika', price: SANDWICH, image: '/menu/sandwich-tandoori.webp' },
-          { name: 'Curry', description: 'Poulet curry', price: SANDWICH, image: '/menu/sandwich-curry.webp' },
+          { name: 'Master', description: 'Steaks, œuf, bacon', price: '10 €', image: '/menu/sandwich-master.webp' },
+          { name: 'Tandoori', description: 'Poulet paprika', price: '10 €', image: '/menu/sandwich-tandoori.webp' },
+          { name: 'Curry', description: 'Poulet curry', price: '10 €', image: '/menu/sandwich-curry.webp' },
         ],
       },
       {
         title: 'Paninis',
         display: 'cards',
         items: [
-          { name: 'Poulet', price: PANINI, image: '/menu/panini-poulet.webp' },
-          { name: '4 fromages', price: PANINI, image: '/menu/panini-4-fromages.webp' },
-          { name: 'Thon', price: PANINI, image: '/menu/panini-thon.webp' },
+          { name: 'Poulet', price: '7 €', image: '/menu/panini-poulet.webp' },
+          { name: '4 fromages', price: '7 €', image: '/menu/panini-4-fromages.webp' },
+          { name: 'Thon', price: '7 €', image: '/menu/panini-thon.webp' },
         ],
       },
     ],
@@ -215,6 +206,14 @@ export const menuSections: MenuSection[] = [
         items: [
           { name: 'Fondant au chocolat', description: 'Boule de glace, crème anglaise', price: '5 €', image: '/menu/fondant-chocolat.webp' },
           { name: 'Tiramisu', description: 'Spéculoos, Kinder Bueno, brownie ou café', price: '5 €', image: '/menu/tiramisu.webp' },
+          {
+            name: 'Cheesecake',
+            // Prix à renseigner : tant que `price` est vide, le cheesecake n'apparaît pas sur la page.
+            price: '',
+            hidden: true,
+            image: '/menu/cheesecake.webp',
+            options: ['Chocolat', 'Fruits rouges', 'Passion'],
+          },
           { name: 'Gaufre', description: 'Nutella, banane', price: '7 €', image: '/menu/gaufre.webp' },
           {
             name: 'Brioche perdue',
@@ -237,14 +236,14 @@ export const menuSections: MenuSection[] = [
         title: 'Cocktails',
         display: 'cards',
         items: [
-          { name: 'Mojito', description: 'Fraise, passion, framboise ou violette', price: COCKTAIL, image: '/menu/mojito.webp' },
-          { name: 'Festif', description: 'Gingembre, framboise, citron vert', price: COCKTAIL, image: '/menu/cocktail-festif.webp' },
-          { name: 'Piña Colada', description: 'Ananas, coco', price: COCKTAIL, image: '/menu/pina-colada.webp' },
+          { name: 'Mojito', description: 'Fraise, passion, framboise ou violette', price: '9 €', image: '/menu/mojito.webp' },
+          { name: 'Festif', description: 'Gingembre, framboise, citron vert', price: '9 €', image: '/menu/cocktail-festif.webp' },
+          { name: 'Piña Colada', description: 'Ananas, coco', price: '9 €', image: '/menu/pina-colada.webp' },
           {
             name: "L'Olivium",
             fullName: "Cocktail L'Olivium",
             description: 'Cranberry, ananas',
-            price: COCKTAIL,
+            price: '9 €',
             image: '/menu/cocktail-olivium.webp',
             imageLarge: '/menu/cocktail-olivium-lg.webp',
             badge: 'Signature',
