@@ -117,9 +117,8 @@ export const menuSections: MenuSection[] = [
         title: 'Salades',
         display: 'cards',
         items: [
-          { name: 'Salade César', price: '9 €', image: '/menu/salade-cesar.webp' },
-          // Prix à renseigner : tant que `price` est vide, la salade n'apparaît pas sur la page.
-          { name: 'Salade nordique', description: 'Saumon, avocat', price: '', hidden: true, image: '/menu/salade-nordique.webp' },
+          { name: 'Salade César', price: '10 €', image: '/menu/salade-cesar.webp' },
+          { name: 'Salade nordique', description: 'Saumon, avocat', price: '10 €', image: '/menu/salade-nordique.webp' },
         ],
       },
     ],
@@ -208,9 +207,7 @@ export const menuSections: MenuSection[] = [
           { name: 'Tiramisu', description: 'Spéculoos, Kinder Bueno, brownie ou café', price: '5 €', image: '/menu/tiramisu.webp' },
           {
             name: 'Cheesecake',
-            // Prix à renseigner : tant que `price` est vide, le cheesecake n'apparaît pas sur la page.
-            price: '',
-            hidden: true,
+            price: '5 €',
             image: '/menu/cheesecake.webp',
             options: ['Chocolat', 'Fruits rouges', 'Passion'],
           },
