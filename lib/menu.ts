@@ -147,15 +147,15 @@ export const menuSections: MenuSection[] = [
         title: 'Pâtes',
         display: 'cards',
         items: [
-          { name: 'Pâtes forestière', price: '14 €', image: '/menu/pates-forestiere.webp' },
+          { name: 'Pâtes forestière', price: '12 €', image: '/menu/pates-forestiere.webp' },
           {
             name: 'Pâtes au saumon',
-            price: '14 €',
+            price: '12 €',
             image: '/menu/pates-saumon.webp',
             imageLarge: '/menu/pates-saumon-lg.webp',
             featured: 3,
           },
-          { name: 'Pâtes salsa', price: '14 €', image: '/menu/pates-salsa.webp' },
+          { name: 'Pâtes salsa', price: '12 €', image: '/menu/pates-salsa.webp' },
         ],
       },
       {
