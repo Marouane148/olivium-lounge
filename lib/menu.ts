@@ -156,6 +156,7 @@ export const menuSections: MenuSection[] = [
             featured: 3,
           },
           { name: 'Pâtes salsa', price: '12 €', image: '/menu/pates-salsa.webp' },
+          { name: 'Pâtes 4 fromages', price: '12 €', image: '/menu/pates-4-fromages.webp' },
         ],
       },
       {
